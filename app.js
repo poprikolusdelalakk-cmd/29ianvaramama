@@ -1,4 +1,4 @@
-var hearts = Number(localStorage.getItem('larisa_hearts')) || 10;
+var hearts = Number(localStorage.getItem('larisa_hearts')) || 15;
 var wIndex = 0;
 
 var wishes = [
@@ -51,7 +51,7 @@ function nextWish() {
 function addFlowerToVase(flower) {
   var vase = document.getElementById('vaseFlowers');
   if (!vase) return;
-  if (vase.children.length >= 15) {
+  if (vase.children.length >= 14) {
     vase.innerHTML = '';
   }
   var span = document.createElement('span');
@@ -94,7 +94,7 @@ function toggleLetter() {
   }
 }
 
-// Умный музыкальный синтезатор (3 мелодии)
+// 5 РАЗНЫХ ПРАЗДНИЧНЫХ МЕЛОДИЙ-ПОЗДРАВЛЕНИЙ
 var audioCtx = null;
 var bgTimer = null;
 var trackIdx = 0;
@@ -102,19 +102,34 @@ var step = 0;
 
 var tracks = [
   {
-    name: "Нежность маминых рук",
-    tempo: 440,
-    notes: [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.00, 698.46, 523.25, 659.25, 783.99, 1046.50, 987.77, 783.99, 659.25, 523.25]
+    name: "🎵 Люблю я маму (Праздничная)",
+    lyrics: "«Люблю я маму больше всех на свете, ты моё солнышко и главный свет!»",
+    tempo: 340,
+    notes: [523.25, 659.25, 783.99, 1046.50, 987.77, 880.00, 783.99, 659.25, 698.46, 880.00, 1046.50, 987.77, 783.99, 659.25, 587.33, 523.25]
   },
   {
-    name: "Весенний вальс",
-    tempo: 360,
+    name: "🎶 Мамино сердце (Нежная)",
+    lyrics: "«Спасибо за тепло твоих рук, за бессонные ночи и бесконечную доброту...»",
+    tempo: 430,
+    notes: [440.00, 523.25, 659.25, 587.33, 523.25, 493.88, 523.25, 659.25, 783.99, 698.46, 659.25, 587.33, 523.25]
+  },
+  {
+    name: "🌸 Весенний букет (Радостная)",
+    lyrics: "«Пусть каждый день цветёт весна, а в доме звучит твой счастливый смех!»",
+    tempo: 290,
+    notes: [587.33, 739.99, 880.00, 1174.66, 1108.73, 987.77, 880.00, 739.99, 783.99, 987.77, 1174.66, 1108.73, 880.00, 739.99, 659.25, 587.33]
+  },
+  {
+    name: "💖 Спасибо за всё, родная",
+    lyrics: "«Ты всегда рядом, всегда поймёшь и поддержишь. С Днём матери, Лариса!»",
+    tempo: 390,
     notes: [659.25, 783.99, 987.77, 880.00, 783.99, 659.25, 587.33, 659.25, 783.99, 659.25, 523.25, 587.33, 659.25, 523.25]
   },
   {
-    name: "Утренние тюльпаны",
-    tempo: 310,
-    notes: [523.25, 587.33, 659.25, 783.99, 880.00, 783.99, 659.25, 783.99, 1046.50, 880.00, 783.99, 659.25, 587.33, 523.25]
+    name: "✨ Самой лучшей маме на Земле",
+    lyrics: "«Пусть исполняются все мечты, а здоровье будет самым крепким!»",
+    tempo: 320,
+    notes: [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50, 880.00, 783.99, 659.25, 783.99, 880.00, 783.99, 659.25, 587.33, 523.25]
   }
 ];
 
@@ -122,33 +137,39 @@ function playTone(freq) {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   var osc = audioCtx.createOscillator();
   var gain = audioCtx.createGain();
-  osc.type = 'sine';
+  osc.type = trackIdx % 2 === 0 ? 'triangle' : 'sine';
   osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
   gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.04);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+  gain.gain.exponentialRampToValueAtTime(0.16, audioCtx.currentTime + 0.04);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.58);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
   osc.start();
-  osc.stop(audioCtx.currentTime + 0.65);
+  osc.stop(audioCtx.currentTime + 0.62);
+}
+
+function updatePlayerUI(isPlaying) {
+  var btn = document.getElementById('bgBtn');
+  var st = document.getElementById('bgStatus');
+  var lyr = document.getElementById('songLyrics');
+  var tr = tracks[trackIdx];
+  if (btn) btn.innerText = isPlaying ? '⏸ Пауза' : '▶ Играть';
+  if (st) st.innerText = tr.name;
+  if (lyr) lyr.innerText = tr.lyrics;
 }
 
 function toggleBgMusic() {
-  var btn = document.getElementById('bgBtn');
-  var st = document.getElementById('bgStatus');
   if (bgTimer) {
     clearInterval(bgTimer);
     bgTimer = null;
-    if (btn) btn.innerText = '▶ Включить';
-    if (st) st.innerText = 'Музыка на паузе';
+    updatePlayerUI(false);
   } else {
     var tr = tracks[trackIdx];
     playTone(tr.notes[step++ % tr.notes.length]);
     bgTimer = setInterval(function() {
       playTone(tr.notes[step++ % tr.notes.length]);
     }, tr.tempo);
-    if (btn) btn.innerText = '⏸ Пауза';
-    if (st) st.innerText = tr.name;
+    updatePlayerUI(true);
   }
 }
 
@@ -160,11 +181,21 @@ function nextBgTrack() {
     bgTimer = null;
     toggleBgMusic();
   } else {
-    var st = document.getElementById('bgStatus');
-    if (st) st.innerText = tracks[trackIdx].name;
+    updatePlayerUI(false);
   }
+}
+
+function selectTrack(idx) {
+  trackIdx = idx;
+  step = 0;
+  if (bgTimer) {
+    clearInterval(bgTimer);
+    bgTimer = null;
+  }
+  toggleBgMusic();
 }
 
 window.addEventListener('DOMContentLoaded', function() {
   updateHearts(0);
+  updatePlayerUI(false);
 });
