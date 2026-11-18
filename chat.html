@@ -6,252 +6,293 @@
   <title>Тёплый чатик мам 💬</title>
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 45%, #fae8ff 100%);
-      color: #334155;
-      margin: 0;
-      padding: 25px 16px 40px;
+      font-family: 'Montserrat', sans-serif;
+      background: #0f0714;
+      color: #ffffff;
       min-height: 100vh;
+      padding: 20px 16px 30px;
       display: flex;
       justify-content: center;
+      overflow-x: hidden;
     }
-    .wrapper { max-width: 760px; width: 100%; display: flex; flex-direction: column; }
 
-    .nav {
+    .bg-glow {
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: 0;
+      opacity: 0.45;
+    }
+    .glow-1 { top: -100px; left: -80px; background: #ff2a85; }
+    .glow-2 { bottom: -100px; right: -80px; background: #9333ea; }
+
+    .container { max-width: 800px; width: 100%; position: relative; z-index: 2; display: flex; flex-direction: column; }
+
+    .navbar {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px;
+      border-radius: 50px;
       margin-bottom: 20px;
     }
-    .nav a {
+
+    .nav-link {
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.85);
-      color: #be123c;
-      font-weight: 800;
-      font-size: 15px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 700;
+      font-size: 14px;
       padding: 12px 22px;
-      border-radius: 50px;
-      border: 2px solid #ffffff;
-      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.08);
-      transition: all 0.2s ease;
-    }
-    .nav a:hover, .nav a.active {
-      background: linear-gradient(135deg, #f43f5e, #d946ef);
-      color: #ffffff;
-      transform: translateY(-2px);
+      border-radius: 40px;
+      transition: all 0.25s;
     }
 
-    .chat-container {
-      background: rgba(255, 255, 255, 0.95);
-      border: 2px solid #ffffff;
-      border-radius: 30px;
-      box-shadow: 0 18px 40px rgba(225, 29, 72, 0.12);
+    .nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.12); }
+    .nav-link.active {
+      background: linear-gradient(135deg, #ff2a85, #9333ea);
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(255, 42, 133, 0.45);
+    }
+
+    .chat-window {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 32px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 72vh;
-      min-height: 480px;
+      height: 75vh;
+      min-height: 500px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
     }
 
-    .chat-header {
-      background: linear-gradient(135deg, #f43f5e, #d946ef);
-      color: white;
+    .chat-top {
+      background: linear-gradient(135deg, rgba(255, 42, 133, 0.35), rgba(147, 51, 234, 0.35));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding: 18px 24px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
     }
-    .chat-header h2 { margin: 0; font-size: 19px; font-weight: 900; }
-    .chat-header span { font-size: 13px; opacity: 0.9; font-weight: 700; }
+    .chat-top h2 { font-size: 18px; font-weight: 800; }
+    .online-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      background: #10b981;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
 
-    .messages {
+    .chat-body {
       flex: 1;
       padding: 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      background: #fffafb;
     }
 
-    .msg {
-      max-width: 80%;
-      padding: 13px 18px;
-      border-radius: 20px;
-      font-size: 15px;
-      line-height: 1.45;
-      font-weight: 600;
-      animation: popIn 0.25s ease;
+    .bubble {
+      max-width: 78%;
+      padding: 14px 18px;
+      border-radius: 22px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      animation: pop 0.25s ease;
     }
-    @keyframes popIn {
-      from { opacity: 0; transform: translateY(6px); }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .msg.other {
-      background: #ffffff;
-      border: 1px solid #fecdd3;
+
+    .bubble.in {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       align-self: flex-start;
       border-bottom-left-radius: 6px;
     }
-    .msg.mine {
-      background: linear-gradient(135deg, #f43f5e, #e11d48);
-      color: white;
+
+    .bubble.out {
+      background: linear-gradient(135deg, #ff2a85, #9333ea);
+      color: #fff;
       align-self: flex-end;
       border-bottom-right-radius: 6px;
+      box-shadow: 0 8px 20px rgba(255, 42, 133, 0.3);
     }
-    .msg-author {
-      font-size: 12px;
-      font-weight: 900;
-      color: #e11d48;
+
+    .sender {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #ff85b8;
       margin-bottom: 4px;
       display: block;
     }
-    .msg.mine .msg-author { color: #ffe4e6; text-align: right; }
+    .bubble.out .sender { color: rgba(255, 255, 255, 0.8); text-align: right; }
 
-    .quick-replies {
+    .chips {
       display: flex;
       gap: 8px;
-      padding: 10px 16px;
-      background: #fff1f2;
+      padding: 12px 18px;
       overflow-x: auto;
-      border-top: 1px solid #fecdd3;
+      background: rgba(15, 7, 20, 0.45);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .quick-btn {
-      background: white;
-      border: 1px solid #fda4af;
-      color: #be123c;
-      padding: 6px 14px;
+
+    .chip {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 133, 184, 0.4);
+      color: #ffd1e3;
+      padding: 8px 14px;
       border-radius: 50px;
-      font-size: 13px;
-      font-weight: 800;
+      font-size: 12.5px;
+      font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       white-space: nowrap;
+      transition: background 0.2s;
     }
-    .quick-btn:hover { background: #ffe4e6; }
+    .chip:hover { background: rgba(255, 42, 133, 0.35); }
 
-    .chat-input-area {
+    .input-bar {
       display: flex;
       gap: 10px;
-      padding: 14px 16px;
-      background: white;
-      border-top: 1px solid #f1f5f9;
+      padding: 14px 18px;
+      background: rgba(15, 7, 20, 0.65);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
     }
-    .chat-input-area input {
+
+    .input-bar input {
       flex: 1;
-      border: 2px solid #fecdd3;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 16px;
-      padding: 12px 16px;
+      padding: 13px 16px;
+      color: #fff;
       font-family: inherit;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 14.5px;
       outline: none;
     }
-    .chat-input-area input:focus { border-color: #f43f5e; }
-    .chat-input-area button {
-      background: linear-gradient(135deg, #f43f5e, #d946ef);
-      color: white;
+    .input-bar input::placeholder { color: rgba(255, 255, 255, 0.45); }
+    .input-bar input:focus { border-color: #ff5e9c; }
+
+    .input-bar button {
+      background: linear-gradient(135deg, #ff2a85, #9333ea);
+      color: #fff;
       border: none;
-      padding: 0 22px;
+      padding: 0 24px;
       border-radius: 16px;
       font-family: inherit;
       font-weight: 800;
-      font-size: 15px;
+      font-size: 14.5px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <nav class="nav">
-      <a href="index.html">🏠 Главная открытка</a>
-      <a href="music.html">🎵 Праздничные песни</a>
-      <a href="chat.html" class="active">💬 Тёплый чатик мам</a>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <div class="container">
+    <nav class="navbar">
+      <a href="index.html" class="nav-link">✨ Главная открытка</a>
+      <a href="music.html" class="nav-link">🎵 Песни для мамы</a>
+      <a href="chat.html" class="nav-link active">💬 Тёплый чатик</a>
     </nav>
 
-    <div class="chat-container">
-      <div class="chat-header">
+    <div class="chat-window">
+      <div class="chat-top">
         <div>
           <h2>💐 Клуб самых лучших мам</h2>
-          <span>В сети: Лариса, Елена, Анна и Сын</span>
+          <span style="font-size: 12.5px; color: rgba(255,255,255,0.75);"><span class="online-dot"></span>В сети: Лариса, Елена, Анна и Сын</span>
         </div>
-        <div style="font-size: 24px;">💖</div>
+        <button onclick="clearChat()" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 8px 12px; border-radius: 12px; font-size: 12px; cursor: pointer;">Очистить</button>
       </div>
 
-      <div class="messages" id="chatBox"></div>
+      <div class="chat-body" id="chatBody"></div>
 
-      <div class="quick-replies">
-        <button class="quick-btn" onclick="sendQuick('Спасибо большое за поздравления! 💐')">Спасибо за поздравления! 💐</button>
-        <button class="quick-btn" onclick="sendQuick('Всех мамочек с нашим праздником! 🌸')">Всех мамочек с праздником! 🌸</button>
-        <button class="quick-btn" onclick="sendQuick('Очень приятно, сижу улыбаюсь ❤️')">Сижу улыбаюсь ❤️</button>
+      <div class="chips">
+        <button class="chip" onclick="quickSend('Спасибо огромное за тёплые слова! 💐')">Спасибо огромное! 💐</button>
+        <button class="chip" onclick="quickSend('Всех мамочек с нашим прекрасным днём! 🌸')">С праздником, девочки! 🌸</button>
+        <button class="chip" onclick="quickSend('Очень приятно, сижу и улыбаюсь ❤️')">Сижу и улыбаюсь ❤️</button>
       </div>
 
-      <div class="chat-input-area">
-        <input type="text" id="msgInput" placeholder="Напишите сообщение в чат..." onkeypress="if(event.key==='Enter') sendMessage()">
-        <button onclick="sendMessage()">Отправить</button>
+      <div class="input-bar">
+        <input type="text" id="textInput" placeholder="Напишите сообщение..." onkeypress="if(event.key==='Enter') sendMsg()">
+        <button onclick="sendMsg()">Отправить</button>
       </div>
     </div>
   </div>
 
   <script>
-    const chatBox = document.getElementById('chatBox');
-    const msgInput = document.getElementById('msgInput');
+    const chatBody = document.getElementById('chatBody');
+    const textInput = document.getElementById('textInput');
 
-    const defaultMessages = [
-      { author: "Сын ❤️", text: "Мам, с Днём матери! Добро пожаловать в твой праздничный чат!", mine: false },
-      { author: "Елена (подруга)", text: "Лариса, с праздником тебя! Здоровья, цветов и побольше поводов для радости! 🌷", mine: false },
-      { author: "Анна", text: "Присоединяюсь! Пусть дети всегда радуют, а на душе будет весна! ✨", mine: false }
+    const initialMsgs = [
+      { user: "Сын ❤️", text: "Мам, с Днём матери! Зацени, какой стильный чат я сделал специально для тебя!", me: false },
+      { user: "Елена", text: "Лариса, с праздником тебя! Здоровья, море цветов и солнечного настроения каждый день! 🌷", me: false },
+      { user: "Анна", text: "Присоединяюсь ко всем поздравлениям! Ты потрясающая мама и замечательный человек! ✨", me: false }
     ];
 
-    const autoReplies = [
-      { author: "Елена (подруга)", text: "Какая же у тебя замечательная открытка получилась! Сразу настроение праздничное 💐" },
-      { author: "Сын ❤️", text: "Ты самая лучшая мама на свете, Лариса! Люблю тебя! 💖" },
-      { author: "Анна", text: "Обязательно сегодня отдохни и выпей вкусного чаю с тортиком! 🍰" },
-      { author: "Ольга", text: "С Днём матери, Лариса! Сияй и улыбайся каждый день! ✨" }
+    const responses = [
+      { user: "Елена", text: "Какой же крутой сайт тебе сделали! Настоящий праздник 💐" },
+      { user: "Сын ❤️", text: "Ты самая лучшая мама на свете, Лариса! Люблю тебя! 💖" },
+      { user: "Анна", text: "Сегодня твой день — обязательно отдохни и порадуй себя чем-нибудь вкусным! 🍰" },
+      { user: "Ольга", text: "С Днём матери, Лариса! Сияй и улыбайся как можно чаще! ✨" }
     ];
 
-    let messages = JSON.parse(localStorage.getItem('momChat2026')) || defaultMessages;
+    let chatData = JSON.parse(localStorage.getItem('larisa_vip_chat')) || initialMsgs;
 
-    function renderMessages() {
-      chatBox.innerHTML = '';
-      messages.forEach(m => {
+    function drawChat() {
+      chatBody.innerHTML = '';
+      chatData.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'msg ' + (m.mine ? 'mine' : 'other');
-        div.innerHTML = `<span class="msg-author">${m.author}</span>${m.text}`;
-        chatBox.appendChild(div);
+        div.className = 'bubble ' + (item.me ? 'out' : 'in');
+        div.innerHTML = `<span class="sender">${item.user}</span>${item.text}`;
+        chatBody.appendChild(div);
       });
-      chatBox.scrollTop = chatBox.scrollHeight;
+      chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    function sendMessage() {
-      const text = msgInput.value.trim();
-      if (!text) return;
-
-      messages.push({ author: "Лариса (Вы)", text: text, mine: true });
-      msgInput.value = '';
-      saveAndRender();
+    function sendMsg() {
+      const val = textInput.value.trim();
+      if (!val) return;
+      chatData.push({ user: "Лариса (Вы)", text: val, me: true });
+      textInput.value = '';
+      saveChat();
 
       setTimeout(() => {
-        const reply = autoReplies[Math.floor(Math.random() * autoReplies.length)];
-        messages.push({ author: reply.author, text: reply.text, mine: false });
-        saveAndRender();
-      }, 1100);
+        const rnd = responses[Math.floor(Math.random() * responses.length)];
+        chatData.push({ user: rnd.user, text: rnd.text, me: false });
+        saveChat();
+      }, 900);
     }
 
-    function sendQuick(text) {
-      msgInput.value = text;
-      sendMessage();
+    function quickSend(txt) {
+      textInput.value = txt;
+      sendMsg();
     }
 
-    function saveAndRender() {
-      localStorage.setItem('momChat2026', JSON.stringify(messages));
-      renderMessages();
+    function saveChat() {
+      localStorage.setItem('larisa_vip_chat', JSON.stringify(chatData));
+      drawChat();
     }
 
-    renderMessages();
+    function clearChat() {
+      chatData = [...initialMsgs];
+      saveChat();
+    }
+
+    drawChat();
   </script>
 </body>
 </html>
