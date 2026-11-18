@@ -12,66 +12,55 @@
       background: #0b0510;
       color: #ffffff;
       min-height: 100vh;
-      padding: 20px 16px 40px;
+      padding: 20px 16px 110px;
       display: flex;
       justify-content: center;
       user-select: none;
     }
-    .container { max-width: 880px; width: 100%; text-align: center; }
-
-    .navbar {
+    .container { max-width: 900px; width: 100%; text-align: center; }
+    .top-bar {
       display: flex;
-      justify-content: center;
-      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(22px);
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.16);
-      padding: 10px;
+      padding: 10px 16px;
       border-radius: 50px;
       margin-bottom: 20px;
     }
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
     .nav-link {
       text-decoration: none;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.85);
       font-weight: 700;
-      font-size: 13.5px;
-      padding: 11px 18px;
+      font-size: 13px;
+      padding: 10px 15px;
       border-radius: 40px;
     }
-    .nav-link.active {
-      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
-      color: #fff;
+    .nav-link.active { background: linear-gradient(135deg, #ff1e7a, #8b5cf6); color: #fff; }
+    .wallet {
+      background: rgba(255, 30, 122, 0.25);
+      border: 1px solid rgba(255, 106, 166, 0.5);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 13.5px;
+      color: #ffd1e3;
     }
-
     .game-area {
       position: relative;
       width: 100%;
-      height: 440px;
+      height: 410px;
       background: rgba(255, 255, 255, 0.06);
       border: 2px solid rgba(255, 106, 166, 0.4);
       border-radius: 30px;
       overflow: hidden;
-      margin-top: 16px;
+      margin-top: 14px;
     }
-
-    .score-board {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      font-size: 18px;
-      font-weight: 800;
-      color: #ffd1e3;
-    }
-
-    .item {
-      position: absolute;
-      font-size: 38px;
-      cursor: pointer;
-      transition: transform 0.1s;
-    }
-    .item:active { transform: scale(1.4); }
-
+    .item { position: absolute; font-size: 38px; cursor: pointer; }
     .btn-start {
       background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
       border: none;
@@ -82,25 +71,55 @@
       font-weight: 800;
       font-size: 15px;
       cursor: pointer;
-      margin-top: 14px;
+      margin-top: 12px;
+    }
+    .music-bar {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 660px;
+      background: rgba(22, 11, 32, 0.95);
+      border: 1px solid rgba(255, 106, 166, 0.45);
+      border-radius: 50px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 999;
+    }
+    .music-btn {
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
+      border: none;
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 30px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 12.5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav class="navbar">
-      <a href="index.html" class="nav-link">✨ Открытка</a>
-      <a href="music.html" class="nav-link">🎵 Песни</a>
-      <a href="chat.html" class="nav-link">💬 Чатик мам</a>
-      <a href="game.html" class="nav-link active">🎮 Игра для мамы</a>
-    </nav>
+    <div class="top-bar">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">✨ Открытка</a>
+        <a href="wheel.html" class="nav-link">🎡 Колесо призов</a>
+        <a href="chat.html" class="nav-link">💬 Чатик мам</a>
+        <a href="game.html" class="nav-link active">🎮 Игра</a>
+      </div>
+      <div class="wallet">❤️ Сердечек: <span id="heartBalance">10</span></div>
+    </div>
 
-    <h1 style="font-size: 28px; font-weight: 900;">💐 Поймай цветы для Ларисы!</h1>
-    <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin: 6px 0 12px;">Кликай по падающим цветам и сердечкам, чтобы собрать огромный праздничный букет!</p>
+    <h1 style="font-size: 26px; font-weight: 900;">💐 Поймай цветы для Ларисы!</h1>
+    <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin: 6px 0 10px;">Каждый пойманный цветок пополняет кошелёк сердечек!</p>
 
-    <div class="score-board">
-      <div>Собрано цветов: <span id="pts" style="color: #ff6aa6;">0</span></div>
-      <div>Рекорд: <span id="best" style="color: #ffd166;">0</span></div>
+    <div style="font-size: 18px; font-weight: 800; color: #ffd1e3;">
+      Собрано за раунд: <span id="pts" style="color: #ff6aa6;">0</span> | Рекорд: <span id="best" style="color: #ffd166;">0</span>
     </div>
 
     <button type="button" class="btn-start" onclick="startGame()">🚀 Начать игру</button>
@@ -108,12 +127,23 @@
     <div class="game-area" id="field"></div>
   </div>
 
+  <div class="music-bar">
+    <div style="font-size: 13px; font-weight: 700; color: #ffd1e3;">
+      🎶 <span id="bgStatus">Нежность маминых рук</span>
+    </div>
+    <div style="display: flex; gap: 6px;">
+      <button type="button" class="music-btn" id="bgBtn" onclick="toggleBgMusic()">▶ Включить</button>
+      <button type="button" class="music-btn" onclick="nextBgTrack()">⏭ Трек</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
   <script>
     var pts = 0;
     var best = Number(localStorage.getItem('mom_game_best')) || 0;
     document.getElementById('best').innerText = best;
     var spawner = null;
-    var icons = ['🌷', '🌹', '💐', '💖', '🎁', '🌸'];
+    var gameIcons = ['🌷', '🌹', '💐', '💖', '🎁', '🌸'];
 
     function startGame() {
       pts = 0;
@@ -125,7 +155,7 @@
       spawner = setInterval(function() {
         var el = document.createElement('div');
         el.className = 'item';
-        el.innerText = icons[Math.floor(Math.random() * icons.length)];
+        el.innerText = gameIcons[Math.floor(Math.random() * gameIcons.length)];
         el.style.left = (10 + Math.random() * 80) + '%';
         el.style.top = '-40px';
         field.appendChild(el);
@@ -134,7 +164,7 @@
         var fall = setInterval(function() {
           topPos += 4;
           el.style.top = topPos + 'px';
-          if (topPos > 450) {
+          if (topPos > 420) {
             clearInterval(fall);
             el.remove();
           }
@@ -142,6 +172,7 @@
 
         el.onclick = function() {
           pts++;
+          updateHearts(1);
           document.getElementById('pts').innerText = pts;
           if (pts > best) {
             best = pts;
