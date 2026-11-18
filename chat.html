@@ -12,37 +12,43 @@
       background: #0b0510;
       color: #ffffff;
       min-height: 100vh;
-      padding: 20px 16px 30px;
+      padding: 20px 16px 100px;
       display: flex;
       justify-content: center;
     }
-    .container { max-width: 880px; width: 100%; display: flex; flex-direction: column; }
-
-    .navbar {
+    .container { max-width: 900px; width: 100%; display: flex; flex-direction: column; }
+    .top-bar {
       display: flex;
-      justify-content: center;
-      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(22px);
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.16);
-      padding: 10px;
+      padding: 10px 16px;
       border-radius: 50px;
       margin-bottom: 20px;
     }
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
     .nav-link {
       text-decoration: none;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.85);
       font-weight: 700;
-      font-size: 13.5px;
-      padding: 11px 18px;
+      font-size: 13px;
+      padding: 10px 15px;
       border-radius: 40px;
     }
-    .nav-link.active {
-      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
-      color: #fff;
+    .nav-link.active { background: linear-gradient(135deg, #ff1e7a, #8b5cf6); color: #fff; }
+    .wallet {
+      background: rgba(255, 30, 122, 0.25);
+      border: 1px solid rgba(255, 106, 166, 0.5);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 13.5px;
+      color: #ffd1e3;
     }
-
     .chat-box {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -50,10 +56,9 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 75vh;
-      min-height: 480px;
+      height: 68vh;
+      min-height: 440px;
     }
-
     .chat-head {
       background: linear-gradient(135deg, rgba(255, 30, 122, 0.35), rgba(139, 92, 246, 0.35));
       padding: 16px 22px;
@@ -61,7 +66,6 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .messages {
       flex: 1;
       padding: 18px;
@@ -70,19 +74,11 @@
       flex-direction: column;
       gap: 12px;
     }
-
-    .msg {
-      max-width: 78%;
-      padding: 13px 17px;
-      border-radius: 20px;
-      font-size: 14.5px;
-      line-height: 1.5;
-    }
+    .msg { max-width: 78%; padding: 13px 17px; border-radius: 20px; font-size: 14.5px; line-height: 1.5; }
     .msg.in { background: rgba(255, 255, 255, 0.1); align-self: flex-start; border-bottom-left-radius: 5px; }
     .msg.out { background: linear-gradient(135deg, #ff1e7a, #8b5cf6); align-self: flex-end; border-bottom-right-radius: 5px; }
     .author { font-size: 11.5px; font-weight: 800; color: #ff85b8; display: block; margin-bottom: 4px; }
     .msg.out .author { color: rgba(255,255,255,0.85); text-align: right; }
-
     .stickers {
       display: flex;
       gap: 8px;
@@ -102,13 +98,7 @@
       cursor: pointer;
       white-space: nowrap;
     }
-
-    .input-row {
-      display: flex;
-      gap: 10px;
-      padding: 14px 16px;
-      background: rgba(11, 5, 16, 0.7);
-    }
+    .input-row { display: flex; gap: 10px; padding: 14px 16px; background: rgba(11, 5, 16, 0.7); }
     .input-row input {
       flex: 1;
       background: rgba(255, 255, 255, 0.08);
@@ -129,16 +119,47 @@
       font-weight: 800;
       cursor: pointer;
     }
+    .music-bar {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 660px;
+      background: rgba(22, 11, 32, 0.95);
+      border: 1px solid rgba(255, 106, 166, 0.45);
+      border-radius: 50px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 999;
+    }
+    .music-btn {
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
+      border: none;
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 30px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 12.5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav class="navbar">
-      <a href="index.html" class="nav-link">✨ Открытка</a>
-      <a href="music.html" class="nav-link">🎵 Песни</a>
-      <a href="chat.html" class="nav-link active">💬 Чатик мам</a>
-      <a href="game.html" class="nav-link">🎮 Игра для мамы</a>
-    </nav>
+    <div class="top-bar">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">✨ Открытка</a>
+        <a href="wheel.html" class="nav-link">🎡 Колесо призов</a>
+        <a href="chat.html" class="nav-link active">💬 Чатик мам</a>
+        <a href="game.html" class="nav-link">🎮 Игра</a>
+      </div>
+      <div class="wallet">❤️ Сердечек: <span id="heartBalance">10</span></div>
+    </div>
 
     <div class="chat-box">
       <div class="chat-head">
@@ -165,6 +186,17 @@
     </div>
   </div>
 
+  <div class="music-bar">
+    <div style="font-size: 13px; font-weight: 700; color: #ffd1e3;">
+      🎶 <span id="bgStatus">Нежность маминых рук</span>
+    </div>
+    <div style="display: flex; gap: 6px;">
+      <button type="button" class="music-btn" id="bgBtn" onclick="toggleBgMusic()">▶ Включить</button>
+      <button type="button" class="music-btn" onclick="nextBgTrack()">⏭ Трек</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
   <script>
     var box = document.getElementById('box');
     var inp = document.getElementById('inp');
@@ -179,7 +211,7 @@
       { u: "Анна", t: "Обязательно сегодня отдохни и выпей вкусного чаю с тортиком! 🍰" }
     ];
 
-    var data = JSON.parse(localStorage.getItem('larisa_chat_v3')) || startData;
+    var data = JSON.parse(localStorage.getItem('larisa_chat_v4')) || startData;
 
     function render() {
       box.innerHTML = '';
@@ -197,6 +229,7 @@
       if (!v) return;
       data.push({ u: "Лариса (Вы)", t: v, m: true });
       inp.value = '';
+      updateHearts(1);
       save();
       setTimeout(function() {
         var r = replies[Math.floor(Math.random() * replies.length)];
@@ -206,7 +239,7 @@
     }
 
     function quick(t) { inp.value = t; send(); }
-    function save() { localStorage.setItem('larisa_chat_v3', JSON.stringify(data)); render(); }
+    function save() { localStorage.setItem('larisa_chat_v4', JSON.stringify(data)); render(); }
     function resetChat() { data = startData.slice(); save(); }
     render();
   </script>
