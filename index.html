@@ -3,439 +3,307 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>С Днём матери, Лариса! ✨</title>
-  <link href="https://googleapis.com" rel="stylesheet">
+  <title>Поздравление для мамы</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: 'Montserrat', sans-serif;
-      background: #0f0714;
-      color: #ffffff;
       min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      padding: 20px 16px 60px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #3b1024 0%, #160913 100%);
+      color: #ffffff;
       display: flex;
       justify-content: center;
-    }
-
-    .bg-glow {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      filter: blur(120px);
-      z-index: 0;
-      opacity: 0.55;
-      animation: floatGlow 10s infinite alternate ease-in-out;
-    }
-    .glow-1 { top: -120px; left: -100px; background: #ff2a85; }
-    .glow-2 { bottom: -150px; right: -100px; background: #8b5cf6; animation-delay: -5s; }
-    .glow-3 { top: 40%; left: 30%; background: #f43f5e; width: 350px; height: 350px; opacity: 0.35; }
-
-    @keyframes floatGlow {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(40px, 30px) scale(1.15); }
+      align-items: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
     }
 
     .container {
-      max-width: 840px;
       width: 100%;
+      max-width: 680px;
+      background: rgba(34, 15, 28, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      text-align: center;
       position: relative;
       z-index: 2;
     }
 
-    .navbar {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 10px;
-      border-radius: 50px;
-      margin-bottom: 28px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    h1 {
+      font-size: 24px;
+      margin-bottom: 18px;
+      color: #ffd6e5;
     }
 
-    .nav-link {
-      text-decoration: none;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 700;
-      font-size: 14px;
-      padding: 12px 22px;
-      border-radius: 40px;
-      transition: all 0.3s ease;
+    .wish-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      font-size: 17px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+      min-height: 88px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
     }
 
-    .nav-link:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .nav-link.active {
-      background: linear-gradient(135deg, #ff2a85, #9333ea);
-      color: #ffffff;
-      box-shadow: 0 8px 20px rgba(255, 42, 133, 0.45);
-    }
-
-    .hero-card {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 36px;
-      padding: 48px 30px;
-      text-align: center;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-      margin-bottom: 24px;
-    }
-
-    .pill {
-      display: inline-block;
-      background: rgba(255, 42, 133, 0.2);
-      border: 1px solid rgba(255, 42, 133, 0.5);
-      color: #ff85b8;
-      font-size: 13px;
-      font-weight: 800;
-      padding: 8px 20px;
-      border-radius: 50px;
-      margin-bottom: 18px;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-size: clamp(32px, 6vw, 54px);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
-
-    h1 span {
-      background: linear-gradient(135deg, #ff5e9c, #ffd166, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-sub {
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 16.5px;
-      line-height: 1.65;
-      max-width: 580px;
-      margin: 0 auto 28px;
-    }
-
-    .btn-main {
-      background: linear-gradient(135deg, #ff2a85, #9333ea);
+    .btn {
+      background: linear-gradient(135deg, #ff5e9c, #ff2e78);
       color: #fff;
       border: none;
-      padding: 18px 36px;
+      border-radius: 14px;
+      padding: 13px 22px;
       font-size: 16px;
-      font-weight: 800;
-      font-family: inherit;
-      border-radius: 22px;
+      font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 12px 30px rgba(255, 42, 133, 0.45);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+      margin: 6px;
     }
 
-    .btn-main:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 18px 40px rgba(255, 42, 133, 0.65);
+    .btn:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
     }
 
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
+    .btn:active {
+      transform: scale(0.98);
     }
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 28px;
-      padding: 26px;
-    }
-
-    .icon-box {
-      width: 54px;
-      height: 54px;
-      background: linear-gradient(135deg, rgba(255, 42, 133, 0.25), rgba(147, 51, 234, 0.25));
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
-
-    .glass-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
-    .glass-card p { font-size: 14px; color: rgba(255, 255, 255, 0.72); line-height: 1.6; }
-
-    .generator-box {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 32px;
-      padding: 34px 26px;
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .wish-screen {
-      background: rgba(15, 7, 20, 0.65);
-      border: 1px solid rgba(255, 94, 156, 0.35);
-      border-radius: 22px;
-      padding: 24px;
-      margin: 20px 0;
-      min-height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 700;
-      color: #ffd1e3;
-      line-height: 1.5;
-    }
-
-    .counter-badge {
-      margin-top: 14px;
-      font-size: 13.5px;
-      color: rgba(255, 255, 255, 0.6);
-      font-weight: 700;
-    }
-
-    .coupons-section {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 32px;
-      padding: 32px 26px;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .coupons-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .coupon-card {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-      border: 2px dashed rgba(255, 133, 184, 0.5);
-      border-radius: 22px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.25s;
-    }
-
-    .coupon-card:hover { transform: scale(1.03); border-color: #ff5e9c; }
-    .coupon-card.activated { background: rgba(16, 185, 129, 0.15); border: 2px solid #10b981; }
-    .coupon-card h4 { font-size: 17px; font-weight: 800; margin-bottom: 6px; color: #fff; }
-    .coupon-card p { font-size: 13px; color: rgba(255, 255, 255, 0.7); }
-
-    .letter-box {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 32px;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .btn-letter {
+    .btn-secondary {
       background: rgba(255, 255, 255, 0.12);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 15px 28px;
-      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .counter {
+      margin-top: 14px;
       font-size: 15px;
-      font-weight: 800;
-      font-family: inherit;
+      color: #ffc2d9;
+      font-weight: 600;
+    }
+
+    .section-title {
+      margin-top: 26px;
+      margin-bottom: 6px;
+      font-size: 19px;
+      color: #ffe3ee;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 14px;
+    }
+
+    .coupons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .coupon {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed rgba(255, 182, 212, 0.45);
+      border-radius: 16px;
+      padding: 16px 14px;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .coupon:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .coupon.activated {
+      background: rgba(52, 211, 153, 0.14);
+      border-color: #34d399;
+    }
+
+    .coupon h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .coupon p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
     }
 
     .letter-paper {
       display: none;
-      margin-top: 22px;
-      background: rgba(15, 7, 20, 0.75);
-      border: 1px solid rgba(255, 133, 184, 0.35);
-      border-radius: 24px;
-      padding: 26px;
+      margin-top: 16px;
+      background: rgba(255, 245, 249, 0.08);
+      border: 1px solid rgba(255, 192, 217, 0.25);
+      border-radius: 16px;
+      padding: 20px;
       text-align: left;
-      font-size: 15.5px;
-      line-height: 1.75;
-      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.65;
+      font-size: 15px;
+      color: #ffeef4;
     }
 
-    .letter-paper.open { display: block; }
+    .letter-paper.open {
+      display: block;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+    }
 
     .particle {
       position: fixed;
-      bottom: -40px;
-      font-size: 30px;
+      top: -30px;
+      font-size: 22px;
       pointer-events: none;
-      z-index: 9999;
-      animation: flyUp 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 999;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
     }
 
-    @keyframes flyUp {
-      0% { transform: translateY(0) rotate(0deg) scale(0.7); opacity: 1; }
-      100% { transform: translateY(-95vh) rotate(360deg) scale(1.4); opacity: 0; }
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 32px;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.45);
-      font-weight: 600;
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="bg-glow glow-1"></div>
-  <div class="bg-glow glow-2"></div>
-  <div class="bg-glow glow-3"></div>
 
   <div class="container">
-    <nav class="navbar">
-      <a href="index.html" class="nav-link active">✨ Главная открытка</a>
-      <a href="music.html" class="nav-link">🎵 Песни для мамы</a>
-      <a href="chat.html" class="nav-link">💬 Тёплый чатик</a>
-    </nav>
+    <h1>✨ Генератор тёплых пожеланий</h1>
 
-    <div class="hero-card">
-      <div class="pill">💐 Специальный выпуск • 2026</div>
-      <h1>С Днём матери,<br><span>любимая Лариса</span>!</h1>
-      <p class="hero-sub">Ты — сердце нашей семьи, источник тепла, мудрости и бесконечной любви. Этот сайт сделан специально для тебя, чтобы ты улыбнулась!</p>
-      <button type="button" class="btn-main" onclick="launchFireworks()">🎉 Запустить салют любви</button>
+    <div class="wish-box" id="wishDisplay">
+      Желаю тебе крепкого здоровья, вдохновения и побольше времени для отдыха и любимых дел!
     </div>
 
-    <div class="features-grid">
-      <div class="glass-card">
-        <div class="icon-box">🌷</div>
-        <h3>Нежность и свет</h3>
-        <p>Твоя забота согревает в любую погоду и делает дом самым уютным местом на Земле.</p>
+    <div>
+      <button class="btn" onclick="nextWish()">✨ Получить новое пожелание</button>
+      <button class="btn btn-secondary" onclick="launchFireworks()">💐 Отправить объятия</button>
+    </div>
+
+    <div class="counter" id="hugCounter">Подарено объятий и букетов: 0</div>
+
+    <h2 class="section-title">🎁 Подарочные сертификаты</h2>
+    <p class="section-subtitle">Нажми на любой купон, чтобы активировать его прямо сейчас</p>
+
+    <div class="coupons">
+      <div class="coupon" onclick="toggleCoupon(this)">
+        <h3>☕ Кофе и вкусный завтрак</h3>
+        <p>Нажми, чтобы активировать</p>
       </div>
-      <div class="glass-card">
-        <div class="icon-box">👑</div>
-        <h3>Мудрость и сила</h3>
-        <p>Ты всегда находишь нужные слова, поддерживаешь в трудные минуты и веришь в успех.</p>
+      <div class="coupon" onclick="toggleCoupon(this)">
+        <h3>✨ Выходной от домашних дел</h3>
+        <p>Все заботы беру на себя</p>
       </div>
-      <div class="glass-card">
-        <div class="icon-box">💎</div>
-        <h3>Настоящее чудо</h3>
-        <p>Пусть каждый твой день будет наполнен радостью, цветами и приятными сюрпризами.</p>
+      <div class="coupon" onclick="toggleCoupon(this)">
+        <h3>🎬 Вечер любимого кино</h3>
+        <p>Фильм выбираешь только ты</p>
       </div>
     </div>
 
-    <div class="generator-box">
-      <h2 style="font-size: 22px; font-weight: 800;">✨ Генератор тёплых пожеланий</h2>
-      <div class="wish-screen" id="wishDisplay">
-        Желаю тебе крепкого здоровья, вдохновения и побольше времени для отдыха и любимых дел!
-      </div>
-💐 Получить новое пожелание
-Подарено объятий и букетов: 0
-🎁 Подарочные сертификаты
-Нажми на любой купон, чтобы активировать его прямо сейчас
+    <button class="btn btn-secondary" id="letterBtn" onclick="toggleLetter()">
+      💌 Открыть личное письмо для мамы
+    </button>
 
+    <div class="letter-paper" id="letterPaper">
+      Дорогая мама Лариса! Спасибо тебе за всё, что ты делаешь каждый день. За твоё терпение, за вкусные завтраки, за твою поддержку и доброе сердце. Иногда я редко говорю это вслух, но я безумно ценю тебя и горжусь тем, что ты моя мама. Пусть у тебя всегда будет повод для улыбки, здоровье никогда не подводит, а все мечты обязательно сбываются. Очень сильно тебя люблю! ❤️
+    </div>
 
-☕ Кофе и вкусный завтрак
-Нажми, чтобы активировать
+    <div class="footer">
+      Сделано с любовью специально для Ларисы • 2026
+    </div>
+  </div>
 
+  <script>
+    var count = 0;
+    var index = 0;
+    var wishes = [
+      "Желаю тебе крепкого здоровья, вдохновения и побольше времени для отдыха и любимых дел!",
+      "Пусть каждое твоё утро начинается с ароматного кофе, улыбки и солнечного настроения!",
+      "Желаю, чтобы глаза всегда сияли от счастья, а на душе было легко и спокойно!",
+      "Пусть в доме всегда царят гармония, смех и уют, а все тревоги обходят стороной!",
+      "Спасибо за твоё золотое сердце! Пусть судьба дарит тебе только самые яркие моменты!",
+      "Желаю море цветов, приятных сюрпризов и исполнения самых заветных желаний!"
+    ];
+    var icons = ['💐', '❤️', '🌸', '✨', '🌷', '💖', '🌺', '🦋'];
 
-✨ Выходной от домашних дел
-Все заботы беру на себя
+    function spawnParticles(amount) {
+      for (var i = 0; i < amount; i++) {
+        (function(delay) {
+          setTimeout(function() {
+            var el = document.createElement('div');
+            el.className = 'particle';
+            el.innerText = icons[Math.floor(Math.random() * icons.length)];
+            el.style.left = (5 + Math.random() * 90) + 'vw';
+            el.style.animationDuration = (2.2 + Math.random() * 1.4) + 's';
+            document.body.appendChild(el);
+            setTimeout(function() {
+              el.remove();
+            }, 3600);
+          }, delay);
+        })(i * 60);
+      }
+    }
 
+    function launchFireworks() {
+      count += 5;
+      document.getElementById('hugCounter').innerText = 'Подарено объятий и букетов: ' + count;
+      spawnParticles(18);
+    }
 
-🎬 Вечер любимого кино
-Фильм выбираешь только ты
+    function nextWish() {
+      count++;
+      index = (index + 1) % wishes.length;
+      document.getElementById('wishDisplay').innerText = wishes[index];
+      document.getElementById('hugCounter').innerText = 'Подарено объятий и букетов: ' + count;
+      spawnParticles(8);
+    }
 
+    function toggleCoupon(card) {
+      card.classList.toggle('activated');
+      var p = card.querySelector('p');
+      if (card.classList.contains('activated')) {
+        p.innerText = '✅ АКТИВИРОВАНО ДЛЯ МАМЫ';
+        p.style.color = '#34d399';
+        p.style.fontWeight = '800';
+        spawnParticles(10);
+      } else {
+        p.innerText = 'Нажми, чтобы активировать';
+        p.style.color = 'rgba(255, 255, 255, 0.7)';
+        p.style.fontWeight = '500';
+      }
+    }
 
-💌 Открыть личное письмо для мамы
-
-Дорогая мама Лариса!
-
-
-Спасибо тебе за всё, что ты делаешь каждый день. За твоё терпение, за вкусные завтраки, за твою поддержку и доброе сердце. Иногда я редко говорю это вслух, но я безумно ценю тебя и горжусь тем, что ты моя мама.
-
-
-Пусть у тебя всегда будет повод для улыбки, здоровье никогда не подводит, а все мечты обязательно сбываются. Очень сильно тебя люблю! ❤️
-
-Сделано с любовью специально для Ларисы • 2026
-var count = 0;
-var index = 0;
-var wishes = [
-"Желаю тебе крепкого здоровья, вдохновения и побольше времени для отдыха и любимых дел!",
-"Пусть каждое твоё утро начинается с ароматного кофе, улыбки и солнечного настроения!",
-"Желаю, чтобы глаза всегда сияли от счастья, а на душе было легко и спокойно!",
-"Пусть в доме всегда царят гармония, смех и уют, а все тревоги обходят стороной!",
-"Спасибо за твоё золотое сердце! Пусть судьба дарит тебе только самые яркие моменты!",
-"Желаю море цветов, приятных сюрпризов и исполнения самых заветных желаний!"
-];
-var icons = ['🌷', '🌹', '💐', '❤️', '💖', '✨', '🌸', '🦋'];
-function spawnParticles(amount) {
-for (var i = 0; i < amount; i++) {
-(function(delay) {
-setTimeout(function() {
-var el = document.createElement('div');
-el.className = 'particle';
-el.innerText = icons[Math.floor(Math.random() * icons.length)];
-el.style.left = (5 + Math.random() * 90) + 'vw';
-el.style.animationDuration = (2.2 + Math.random() * 1.4) + 's';
-document.body.appendChild(el);
-setTimeout(function() { el.remove(); }, 3600);
-}, delay);
-})(i * 60);
-}
-}
-function launchFireworks() {
-count += 5;
-document.getElementById('hugCounter').innerText = 'Подарено объятий и букетов: ' + count;
-spawnParticles(18);
-}
-function nextWish() {
-count++;
-index = (index + 1) % wishes.length;
-document.getElementById('wishDisplay').innerText = wishes[index];
-document.getElementById('hugCounter').innerText = 'Подарено объятий и букетов: ' + count;
-spawnParticles(8);
-}
-function toggleCoupon(card) {
-card.classList.toggle('activated');
-var p = card.querySelector('p');
-if (card.classList.contains('activated')) {
-p.innerText = '✅ АКТИВИРОВАНО ДЛЯ МАМЫ';
-p.style.color = '#34d399';
-p.style.fontWeight = '800';
-spawnParticles(10);
-} else {
-p.innerText = 'Нажми, чтобы активировать';
-p.style.color = 'rgba(255, 255, 255, 0.7)';
-p.style.fontWeight = '500';
-}
-}
-function toggleLetter() {
-var paper = document.getElementById('letterPaper');
-var btn = document.getElementById('letterBtn');
-paper.classList.toggle('open');
-if (paper.classList.contains('open')) {
-btn.innerText = '📕 Скрыть письмо';
-spawnParticles(6);
-} else {
-btn.innerText = '💌 Открыть личное письмо для мамы';
-}
-}
-
-
+    function toggleLetter() {
+      var paper = document.getElementById('letterPaper');
+      var btn = document.getElementById('letterBtn');
+      paper.classList.toggle('open');
+      if (paper.classList.contains('open')) {
+        btn.innerText = '📕 Скрыть письмо';
+        spawnParticles(6);
+      } else {
+        btn.innerText = '💌 Открыть личное письмо для мамы';
+      }
+    }
+  </script>
+</body>
+</html>
