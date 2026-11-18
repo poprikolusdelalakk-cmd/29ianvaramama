@@ -9,290 +9,206 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #0f0714;
+      background: #0b0510;
       color: #ffffff;
       min-height: 100vh;
       padding: 20px 16px 30px;
       display: flex;
       justify-content: center;
-      overflow-x: hidden;
     }
-
-    .bg-glow {
-      position: fixed;
-      width: 450px;
-      height: 450px;
-      border-radius: 50%;
-      filter: blur(120px);
-      z-index: 0;
-      opacity: 0.45;
-    }
-    .glow-1 { top: -100px; left: -80px; background: #ff2a85; }
-    .glow-2 { bottom: -100px; right: -80px; background: #9333ea; }
-
-    .container { max-width: 800px; width: 100%; position: relative; z-index: 2; display: flex; flex-direction: column; }
+    .container { max-width: 880px; width: 100%; display: flex; flex-direction: column; }
 
     .navbar {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       padding: 10px;
       border-radius: 50px;
       margin-bottom: 20px;
     }
-
     .nav-link {
       text-decoration: none;
       color: rgba(255, 255, 255, 0.8);
       font-weight: 700;
-      font-size: 14px;
-      padding: 12px 22px;
+      font-size: 13.5px;
+      padding: 11px 18px;
       border-radius: 40px;
-      transition: all 0.25s;
     }
-
-    .nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.12); }
     .nav-link.active {
-      background: linear-gradient(135deg, #ff2a85, #9333ea);
-      color: #ffffff;
-      box-shadow: 0 8px 20px rgba(255, 42, 133, 0.45);
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
+      color: #fff;
     }
 
-    .chat-window {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(24px);
+    .chat-box {
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 32px;
+      border-radius: 30px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       height: 75vh;
-      min-height: 500px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+      min-height: 480px;
     }
 
-    .chat-top {
-      background: linear-gradient(135deg, rgba(255, 42, 133, 0.35), rgba(147, 51, 234, 0.35));
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 18px 24px;
+    .chat-head {
+      background: linear-gradient(135deg, rgba(255, 30, 122, 0.35), rgba(139, 92, 246, 0.35));
+      padding: 16px 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .chat-top h2 { font-size: 18px; font-weight: 800; }
-    .online-dot {
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      background: #10b981;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
 
-    .chat-body {
+    .messages {
       flex: 1;
-      padding: 20px;
+      padding: 18px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .bubble {
+    .msg {
       max-width: 78%;
-      padding: 14px 18px;
-      border-radius: 22px;
+      padding: 13px 17px;
+      border-radius: 20px;
       font-size: 14.5px;
       line-height: 1.5;
-      animation: pop 0.25s ease;
     }
-    @keyframes pop {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .msg.in { background: rgba(255, 255, 255, 0.1); align-self: flex-start; border-bottom-left-radius: 5px; }
+    .msg.out { background: linear-gradient(135deg, #ff1e7a, #8b5cf6); align-self: flex-end; border-bottom-right-radius: 5px; }
+    .author { font-size: 11.5px; font-weight: 800; color: #ff85b8; display: block; margin-bottom: 4px; }
+    .msg.out .author { color: rgba(255,255,255,0.85); text-align: right; }
 
-    .bubble.in {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      align-self: flex-start;
-      border-bottom-left-radius: 6px;
-    }
-
-    .bubble.out {
-      background: linear-gradient(135deg, #ff2a85, #9333ea);
-      color: #fff;
-      align-self: flex-end;
-      border-bottom-right-radius: 6px;
-      box-shadow: 0 8px 20px rgba(255, 42, 133, 0.3);
-    }
-
-    .sender {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: #ff85b8;
-      margin-bottom: 4px;
-      display: block;
-    }
-    .bubble.out .sender { color: rgba(255, 255, 255, 0.8); text-align: right; }
-
-    .chips {
+    .stickers {
       display: flex;
       gap: 8px;
-      padding: 12px 18px;
+      padding: 10px 16px;
       overflow-x: auto;
-      background: rgba(15, 7, 20, 0.45);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(11, 5, 16, 0.5);
     }
-
-    .chip {
+    .sticker-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 133, 184, 0.4);
       color: #ffd1e3;
-      padding: 8px 14px;
+      padding: 7px 14px;
       border-radius: 50px;
       font-size: 12.5px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.2s;
     }
-    .chip:hover { background: rgba(255, 42, 133, 0.35); }
 
-    .input-bar {
+    .input-row {
       display: flex;
       gap: 10px;
-      padding: 14px 18px;
-      background: rgba(15, 7, 20, 0.65);
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 14px 16px;
+      background: rgba(11, 5, 16, 0.7);
     }
-
-    .input-bar input {
+    .input-row input {
       flex: 1;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 16px;
-      padding: 13px 16px;
+      padding: 12px 16px;
       color: #fff;
       font-family: inherit;
-      font-size: 14.5px;
       outline: none;
     }
-    .input-bar input::placeholder { color: rgba(255, 255, 255, 0.45); }
-    .input-bar input:focus { border-color: #ff5e9c; }
-
-    .input-bar button {
-      background: linear-gradient(135deg, #ff2a85, #9333ea);
-      color: #fff;
+    .input-row button {
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
       border: none;
-      padding: 0 24px;
+      color: #fff;
+      padding: 0 22px;
       border-radius: 16px;
       font-family: inherit;
       font-weight: 800;
-      font-size: 14.5px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="bg-glow glow-1"></div>
-  <div class="bg-glow glow-2"></div>
-
   <div class="container">
     <nav class="navbar">
-      <a href="index.html" class="nav-link">✨ Главная открытка</a>
-      <a href="music.html" class="nav-link">🎵 Песни для мамы</a>
-      <a href="chat.html" class="nav-link active">💬 Тёплый чатик</a>
+      <a href="index.html" class="nav-link">✨ Открытка</a>
+      <a href="music.html" class="nav-link">🎵 Песни</a>
+      <a href="chat.html" class="nav-link active">💬 Чатик мам</a>
+      <a href="game.html" class="nav-link">🎮 Игра для мамы</a>
     </nav>
 
-    <div class="chat-window">
-      <div class="chat-top">
+    <div class="chat-box">
+      <div class="chat-head">
         <div>
-          <h2>💐 Клуб самых лучших мам</h2>
-          <span style="font-size: 12.5px; color: rgba(255,255,255,0.75);"><span class="online-dot"></span>В сети: Лариса, Елена, Анна и Сын</span>
+          <h2 style="font-size: 18px; font-weight: 800;">💐 Клуб лучших мам</h2>
+          <span style="font-size: 12px; color: rgba(255,255,255,0.75);">● В сети: Лариса, Елена, Анна и Сын</span>
         </div>
-        <button onclick="clearChat()" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 8px 12px; border-radius: 12px; font-size: 12px; cursor: pointer;">Очистить</button>
+        <button type="button" onclick="resetChat()" style="background: rgba(255,255,255,0.12); border: none; color: #fff; padding: 7px 12px; border-radius: 10px; font-size: 12px; cursor: pointer;">Сброс</button>
       </div>
 
-      <div class="chat-body" id="chatBody"></div>
+      <div class="messages" id="box"></div>
 
-      <div class="chips">
-        <button class="chip" onclick="quickSend('Спасибо огромное за тёплые слова! 💐')">Спасибо огромное! 💐</button>
-        <button class="chip" onclick="quickSend('Всех мамочек с нашим прекрасным днём! 🌸')">С праздником, девочки! 🌸</button>
-        <button class="chip" onclick="quickSend('Очень приятно, сижу и улыбаюсь ❤️')">Сижу и улыбаюсь ❤️</button>
+      <div class="stickers">
+        <button type="button" class="sticker-btn" onclick="quick('💐 Огромный букет тюльпанов!')">💐 Букет</button>
+        <button type="button" class="sticker-btn" onclick="quick('Спасибо огромное, девочки! ❤️')">Спасибо! ❤️</button>
+        <button type="button" class="sticker-btn" onclick="quick('Всех мамочек с праздником! 🌸')">С праздником! 🌸</button>
+        <button type="button" class="sticker-btn" onclick="quick('🎂 Праздничный тортик к чаю!')">🎂 Тортик</button>
       </div>
 
-      <div class="input-bar">
-        <input type="text" id="textInput" placeholder="Напишите сообщение..." onkeypress="if(event.key==='Enter') sendMsg()">
-        <button onclick="sendMsg()">Отправить</button>
+      <div class="input-row">
+        <input type="text" id="inp" placeholder="Напишите сообщение..." onkeypress="if(event.key==='Enter') send()">
+        <button type="button" onclick="send()">Отправить</button>
       </div>
     </div>
   </div>
 
   <script>
-    const chatBody = document.getElementById('chatBody');
-    const textInput = document.getElementById('textInput');
-
-    const initialMsgs = [
-      { user: "Сын ❤️", text: "Мам, с Днём матери! Зацени, какой стильный чат я сделал специально для тебя!", me: false },
-      { user: "Елена", text: "Лариса, с праздником тебя! Здоровья, море цветов и солнечного настроения каждый день! 🌷", me: false },
-      { user: "Анна", text: "Присоединяюсь ко всем поздравлениям! Ты потрясающая мама и замечательный человек! ✨", me: false }
+    var box = document.getElementById('box');
+    var inp = document.getElementById('inp');
+    var startData = [
+      { u: "Сын ❤️", t: "Мам, с Днём матери! Добро пожаловать в твой праздничный чат!", m: false },
+      { u: "Елена", t: "Лариса, с праздником! Здоровья, цветов и счастья каждый день! 🌷", m: false },
+      { u: "Анна", t: "Ты потрясающая мама! Пусть улыбка никогда не сходит с лица! ✨", m: false }
+    ];
+    var replies = [
+      { u: "Сын ❤️", t: "Ты самая лучшая мама на свете, Лариса! Люблю тебя! 💖" },
+      { u: "Елена", t: "Какой шикарный сайт тебе сделали! Настоящий праздник 💐" },
+      { u: "Анна", t: "Обязательно сегодня отдохни и выпей вкусного чаю с тортиком! 🍰" }
     ];
 
-    const responses = [
-      { user: "Елена", text: "Какой же крутой сайт тебе сделали! Настоящий праздник 💐" },
-      { user: "Сын ❤️", text: "Ты самая лучшая мама на свете, Лариса! Люблю тебя! 💖" },
-      { user: "Анна", text: "Сегодня твой день — обязательно отдохни и порадуй себя чем-нибудь вкусным! 🍰" },
-      { user: "Ольга", text: "С Днём матери, Лариса! Сияй и улыбайся как можно чаще! ✨" }
-    ];
+    var data = JSON.parse(localStorage.getItem('larisa_chat_v3')) || startData;
 
-    let chatData = JSON.parse(localStorage.getItem('larisa_vip_chat')) || initialMsgs;
-
-    function drawChat() {
-      chatBody.innerHTML = '';
-      chatData.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'bubble ' + (item.me ? 'out' : 'in');
-        div.innerHTML = `<span class="sender">${item.user}</span>${item.text}`;
-        chatBody.appendChild(div);
-      });
-      chatBody.scrollTop = chatBody.scrollHeight;
+    function render() {
+      box.innerHTML = '';
+      for (var i = 0; i < data.length; i++) {
+        var d = document.createElement('div');
+        d.className = 'msg ' + (data[i].m ? 'out' : 'in');
+        d.innerHTML = '<span class="author">' + data[i].u + '</span>' + data[i].t;
+        box.appendChild(d);
+      }
+      box.scrollTop = box.scrollHeight;
     }
 
-    function sendMsg() {
-      const val = textInput.value.trim();
-      if (!val) return;
-      chatData.push({ user: "Лариса (Вы)", text: val, me: true });
-      textInput.value = '';
-      saveChat();
-
-      setTimeout(() => {
-        const rnd = responses[Math.floor(Math.random() * responses.length)];
-        chatData.push({ user: rnd.user, text: rnd.text, me: false });
-        saveChat();
-      }, 900);
+    function send() {
+      var v = inp.value.trim();
+      if (!v) return;
+      data.push({ u: "Лариса (Вы)", t: v, m: true });
+      inp.value = '';
+      save();
+      setTimeout(function() {
+        var r = replies[Math.floor(Math.random() * replies.length)];
+        data.push({ u: r.u, t: r.t, m: false });
+        save();
+      }, 850);
     }
 
-    function quickSend(txt) {
-      textInput.value = txt;
-      sendMsg();
-    }
-
-    function saveChat() {
-      localStorage.setItem('larisa_vip_chat', JSON.stringify(chatData));
-      drawChat();
-    }
-
-    function clearChat() {
-      chatData = [...initialMsgs];
-      saveChat();
-    }
-
-    drawChat();
+    function quick(t) { inp.value = t; send(); }
+    function save() { localStorage.setItem('larisa_chat_v3', JSON.stringify(data)); render(); }
+    function resetChat() { data = startData.slice(); save(); }
+    render();
   </script>
 </body>
 </html>
