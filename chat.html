@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тёплый чатик мам 💬</title>
+  <link href="https://googleapis.com" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 45%, #fae8ff 100%);
+      color: #334155;
+      margin: 0;
+      padding: 25px 16px 40px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper { max-width: 760px; width: 100%; display: flex; flex-direction: column; }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .nav a {
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.85);
+      color: #be123c;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 12px 22px;
+      border-radius: 50px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.08);
+      transition: all 0.2s ease;
+    }
+    .nav a:hover, .nav a.active {
+      background: linear-gradient(135deg, #f43f5e, #d946ef);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .chat-container {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #ffffff;
+      border-radius: 30px;
+      box-shadow: 0 18px 40px rgba(225, 29, 72, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 72vh;
+      min-height: 480px;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #f43f5e, #d946ef);
+      color: white;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-header h2 { margin: 0; font-size: 19px; font-weight: 900; }
+    .chat-header span { font-size: 13px; opacity: 0.9; font-weight: 700; }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #fffafb;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 13px 18px;
+      border-radius: 20px;
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 600;
+      animation: popIn 0.25s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .msg.other {
+      background: #ffffff;
+      border: 1px solid #fecdd3;
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+    }
+    .msg.mine {
+      background: linear-gradient(135deg, #f43f5e, #e11d48);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+    .msg-author {
+      font-size: 12px;
+      font-weight: 900;
+      color: #e11d48;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .msg.mine .msg-author { color: #ffe4e6; text-align: right; }
+
+    .quick-replies {
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: #fff1f2;
+      overflow-x: auto;
+      border-top: 1px solid #fecdd3;
+    }
+    .quick-btn {
+      background: white;
+      border: 1px solid #fda4af;
+      color: #be123c;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .quick-btn:hover { background: #ffe4e6; }
+
+    .chat-input-area {
+      display: flex;
+      gap: 10px;
+      padding: 14px 16px;
+      background: white;
+      border-top: 1px solid #f1f5f9;
+    }
+    .chat-input-area input {
+      flex: 1;
+      border: 2px solid #fecdd3;
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      outline: none;
+    }
+    .chat-input-area input:focus { border-color: #f43f5e; }
+    .chat-input-area button {
+      background: linear-gradient(135deg, #f43f5e, #d946ef);
+      color: white;
+      border: none;
+      padding: 0 22px;
+      border-radius: 16px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <nav class="nav">
+      <a href="index.html">🏠 Главная открытка</a>
+      <a href="music.html">🎵 Праздничные песни</a>
+      <a href="chat.html" class="active">💬 Тёплый чатик мам</a>
+    </nav>
+
+    <div class="chat-container">
+      <div class="chat-header">
+        <div>
+          <h2>💐 Клуб самых лучших мам</h2>
+          <span>В сети: Лариса, Елена, Анна и Сын</span>
+        </div>
+        <div style="font-size: 24px;">💖</div>
+      </div>
+
+      <div class="messages" id="chatBox"></div>
+
+      <div class="quick-replies">
+        <button class="quick-btn" onclick="sendQuick('Спасибо большое за поздравления! 💐')">Спасибо за поздравления! 💐</button>
+        <button class="quick-btn" onclick="sendQuick('Всех мамочек с нашим праздником! 🌸')">Всех мамочек с праздником! 🌸</button>
+        <button class="quick-btn" onclick="sendQuick('Очень приятно, сижу улыбаюсь ❤️')">Сижу улыбаюсь ❤️</button>
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" id="msgInput" placeholder="Напишите сообщение в чат..." onkeypress="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">Отправить</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const msgInput = document.getElementById('msgInput');
+
+    const defaultMessages = [
+      { author: "Сын ❤️", text: "Мам, с Днём матери! Добро пожаловать в твой праздничный чат!", mine: false },
+      { author: "Елена (подруга)", text: "Лариса, с праздником тебя! Здоровья, цветов и побольше поводов для радости! 🌷", mine: false },
+      { author: "Анна", text: "Присоединяюсь! Пусть дети всегда радуют, а на душе будет весна! ✨", mine: false }
+    ];
+
+    const autoReplies = [
+      { author: "Елена (подруга)", text: "Какая же у тебя замечательная открытка получилась! Сразу настроение праздничное 💐" },
+      { author: "Сын ❤️", text: "Ты самая лучшая мама на свете, Лариса! Люблю тебя! 💖" },
+      { author: "Анна", text: "Обязательно сегодня отдохни и выпей вкусного чаю с тортиком! 🍰" },
+      { author: "Ольга", text: "С Днём матери, Лариса! Сияй и улыбайся каждый день! ✨" }
+    ];
+
+    let messages = JSON.parse(localStorage.getItem('momChat2026')) || defaultMessages;
+
+    function renderMessages() {
+      chatBox.innerHTML = '';
+      messages.forEach(m => {
+        const div = document.createElement('div');
+        div.className = 'msg ' + (m.mine ? 'mine' : 'other');
+        div.innerHTML = `<span class="msg-author">${m.author}</span>${m.text}`;
+        chatBox.appendChild(div);
+      });
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
+      const text = msgInput.value.trim();
+      if (!text) return;
+
+      messages.push({ author: "Лариса (Вы)", text: text, mine: true });
+      msgInput.value = '';
+      saveAndRender();
+
+      setTimeout(() => {
+        const reply = autoReplies[Math.floor(Math.random() * autoReplies.length)];
+        messages.push({ author: reply.author, text: reply.text, mine: false });
+        saveAndRender();
+      }, 1100);
+    }
+
+    function sendQuick(text) {
+      msgInput.value = text;
+      sendMessage();
+    }
+
+    function saveAndRender() {
+      localStorage.setItem('momChat2026', JSON.stringify(messages));
+      renderMessages();
+    }
+
+    renderMessages();
+  </script>
+</body>
+</html>

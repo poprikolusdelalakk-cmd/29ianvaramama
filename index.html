@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>С Днём матери, Лариса! 💐</title>
+  <link href="https://googleapis.com" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 45%, #fae8ff 100%);
+      color: #334155;
+      margin: 0;
+      padding: 25px 16px 50px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+    .wrapper { max-width: 800px; width: 100%; position: relative; z-index: 2; }
+
+    /* Навигация */
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .nav a {
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.85);
+      color: #be123c;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 12px 22px;
+      border-radius: 50px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.08);
+      transition: all 0.2s ease;
+    }
+    .nav a:hover, .nav a.active {
+      background: linear-gradient(135deg, #f43f5e, #d946ef);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(244, 63, 94, 0.3);
+    }
+
+    /* Шапка */
+    .hero {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border: 2px solid #ffffff;
+      border-radius: 34px;
+      padding: 45px 28px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(225, 29, 72, 0.12);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      background: #ffe4e6;
+      color: #e11d48;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: clamp(32px, 5.5vw, 50px);
+      font-weight: 900;
+      margin: 0 0 14px 0;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+    h1 span {
+      background: linear-gradient(135deg, #e11d48, #c026d3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      color: #64748b;
+      font-size: 17px;
+      margin: 0 auto;
+      max-width: 560px;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+
+    /* Карточки качеств */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #ffffff;
+      border-radius: 26px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(225, 29, 72, 0.07);
+      transition: transform 0.25s ease;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+    .card h3 { margin: 0 0 8px 0; font-size: 19px; font-weight: 900; color: #1e293b; }
+    .card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: #475569; font-weight: 600; }
+
+    /* Интерактив */
+    .interactive-box {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #ffffff;
+      border-radius: 32px;
+      padding: 36px 26px;
+      text-align: center;
+      box-shadow: 0 18px 40px rgba(225, 29, 72, 0.1);
+      margin-bottom: 24px;
+    }
+    .wish-display {
+      background: #fff1f2;
+      border-radius: 20px;
+      padding: 22px;
+      margin: 20px 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: #be123c;
+      min-height: 95px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.45;
+    }
+    .btn-love {
+      background: linear-gradient(135deg, #f43f5e, #d946ef);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: inherit;
+      border-radius: 18px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(244, 63, 94, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-love:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(244, 63, 94, 0.45); }
+    .btn-love:active { transform: scale(0.96); }
+    .counter { margin-top: 14px; font-size: 14px; font-weight: 800; color: #64748b; }
+
+    /* Купоны для мамы */
+    .coupons-box {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #ffffff;
+      border-radius: 30px;
+      padding: 28px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(225, 29, 72, 0.08);
+    }
+    .coupons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .coupon {
+      background: #fdf2f8;
+      border: 2px dashed #f472b6;
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .coupon:hover { background: #fce7f3; transform: scale(1.02); }
+    .coupon.used {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
+    .coupon strong { display: block; color: #be185d; font-size: 16px; margin-bottom: 4px; }
+    .coupon span { font-size: 13px; color: #64748b; font-weight: 700; }
+
+    /* Письмо */
+    .secret-letter {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #ffffff;
+      border-radius: 28px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(225, 29, 72, 0.08);
+    }
+    .btn-envelope {
+      background: #fdf2f8;
+      color: #be185d;
+      border: 2px dashed #f9a8d4;
+      padding: 15px 26px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-envelope:hover { background: #fce7f3; }
+    .letter-content {
+      display: none;
+      margin-top: 20px;
+      text-align: left;
+      background: #fffafb;
+      padding: 24px;
+      border-radius: 20px;
+      border: 1px solid #fecdd3;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #334155;
+      font-weight: 600;
+    }
+    .letter-content.open { display: block; animation: fadeIn 0.4s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .floating-emoji {
+      position: fixed;
+      bottom: -30px;
+      font-size: 30px;
+      pointer-events: none;
+      z-index: 999;
+      animation: floatUp 2.6s ease-out forwards;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-90vh) scale(1.4); opacity: 0; }
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <nav class="nav">
+      <a href="index.html" class="active">🏠 Главная открытка</a>
+      <a href="music.html">🎵 Праздничные песни</a>
+      <a href="chat.html">💬 Тёплый чатик мам</a>
+    </nav>
+
+    <div class="hero">
+      <div class="badge">💐 С праздником, родная!</div>
+      <h1>С Днём матери, <span>Лариса</span>!</h1>
+      <p class="subtitle">Спасибо за твою бесконечную заботу, тепло, терпение и поддержку каждый день. Ты — самый главный и любимый человек!</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <span class="card-icon">🌷</span>
+        <h3>Самая добрая</h3>
+        <p>Твоя улыбка всегда согревает и делает даже самый пасмурный день светлым и уютным.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">💖</span>
+        <h3>Самая мудрая</h3>
+        <p>Ты всегда знаешь, как поддержать, подсказать верное решение и поверить в меня.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">✨</span>
+        <h3>Самая лучшая</h3>
+        <p>Пусть все твои мечты сбываются, а поводов для радости становится с каждым днём всё больше.</p>
+      </div>
+    </div>
+
+    <div class="interactive-box">
+      <h2 style="margin: 0 0 6px 0; font-size: 23px; font-weight: 900;">Генератор тёплых пожеланий</h2>
+      <p style="margin: 0; font-size: 14.5px; color: #64748b; font-weight: 700;">Нажимай на кнопку, чтобы отправить виртуальный букет и прочитать пожелание</p>
+      <div class="wish-display" id="wishBox">
+        Желаю крепкого здоровья, отличного настроения и побольше времени для отдыха и любимых дел!
+      </div>
+      <button type="button" class="btn-love" onclick="sendLove()">💐 Подарить цветочек и объятие</button>
+      <div class="counter" id="loveCounter">Отправлено объятий и цветов: 0</div>
+    </div>
+
+    <div class="coupons-box">
+      <h2 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 900;">🎁 Подарочные купоны для тебя</h2>
+      <p style="margin: 0; font-size: 14px; color: #64748b; font-weight: 700;">Нажми на любой купон, чтобы активировать его в любой день!</p>
+      <div class="coupons-grid">
+        <div class="coupon" onclick="useCoupon(this)">
+          <strong>☕ Кофе и завтрак</strong>
+          <span>Нажми, чтобы использовать</span>
+        </div>
+        <div class="coupon" onclick="useCoupon(this)">
+          <strong>🧹 День без уборки</strong>
+          <span>Все дела беру на себя</span>
+        </div>
+        <div class="coupon" onclick="useCoupon(this)">
+          <strong>🎬 Вечер любимого кино</strong>
+          <span>Фильм выбираешь только ты</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="secret-letter">
+      <button type="button" class="btn-envelope" onclick="toggleLetter()">💌 Открыть личное письмо</button>
+      <div class="letter-content" id="letterText">
+        <strong>Дорогая мама Лариса!</strong><br><br>
+Иногда в суете обычных дней я не успеваю сказать тебе, как сильно я тебя люблю и ценю всё, что ты для меня делаешь. Спасибо за вкусные завтраки, за заботу, за то, что всегда переживаешь и радуешься моим успехам.
+
+
+Пусть у тебя никогда не будет поводов для грусти, здоровье будет крепким, а каждый день приносит только приятные сюрпризы. Я тебя очень люблю! ❤️
+
+Сделано с огромной любовью специально для мамы Ларисы • 2026
+
+let loveCount = 0;
+let wishIndex = 0;
+const wishes = [
+"Желаю крепкого здоровья, отличного настроения и побольше времени для отдыха и любимых дел!",
+"Пусть каждый твой день начинается с улыбки, вкусного кофе и хороших новостей!",
+"Желаю, чтобы глаза всегда светились от счастья, а на душе было легко и спокойно!",
+"Пусть в доме всегда царят уют, тепло и смех, а все тревоги обходят стороной!",
+"Спасибо за твоё золотое сердце! Пусть судьба дарит тебе только радостные моменты!",
+"Желаю море цветов, приятных сюрпризов и исполнения самых заветных желаний!"
+];
+const emojis = ['🌷', '🌹', '💐', '❤️', '💖', '🌸', '✨'];
+function sendLove() {
+loveCount++;
+document.getElementById('loveCounter').innerText = 'Отправлено объятий и цветов: ' + loveCount;
+wishIndex = (wishIndex + 1) % wishes.length;
+document.getElementById('wishBox').innerText = wishes[wishIndex];
+for (let i = 0; i < 7; i++) {
+createFloatingEmoji();
+}
+}
+function createFloatingEmoji() {
+const el = document.createElement('div');
+el.className = 'floating-emoji';
+el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+el.style.left = (8 + Math.random() * 84) + 'vw';
+el.style.animationDuration = (2 + Math.random() * 1.2) + 's';
+document.body.appendChild(el);
+setTimeout(() => el.remove(), 3200);
+}
+function toggleLetter() {
+document.getElementById('letterText').classList.toggle('open');
+}
+function useCoupon(el) {
+el.classList.toggle('used');
+const span = el.querySelector('span');
+if (el.classList.contains('used')) {
+span.innerText = '✅ Купон активирован!';
+for (let i = 0; i < 5; i++) createFloatingEmoji();
+} else {
+span.innerText = 'Нажми, чтобы использовать';
+}
+}
