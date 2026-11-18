@@ -3,312 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Песни для мамы Ларисы 🎵</title>
+  <title>Песни для мамы 🎵</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #0f0714;
+      background: #0b0510;
       color: #ffffff;
       min-height: 100vh;
       padding: 20px 16px 60px;
       display: flex;
       justify-content: center;
-      overflow-x: hidden;
     }
-
-    .bg-glow {
-      position: fixed;
-      width: 450px;
-      height: 450px;
-      border-radius: 50%;
-      filter: blur(120px);
-      z-index: 0;
-      opacity: 0.5;
-    }
-    .glow-1 { top: -100px; right: -80px; background: #9333ea; }
-    .glow-2 { bottom: -100px; left: -80px; background: #ff2a85; }
-
-    .container { max-width: 840px; width: 100%; position: relative; z-index: 2; }
+    .container { max-width: 880px; width: 100%; }
 
     .navbar {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       padding: 10px;
       border-radius: 50px;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
     }
-
     .nav-link {
       text-decoration: none;
       color: rgba(255, 255, 255, 0.8);
       font-weight: 700;
-      font-size: 14px;
-      padding: 12px 22px;
+      font-size: 13.5px;
+      padding: 11px 18px;
       border-radius: 40px;
-      transition: all 0.25s;
     }
-
-    .nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.12); }
     .nav-link.active {
-      background: linear-gradient(135deg, #ff2a85, #9333ea);
-      color: #ffffff;
-      box-shadow: 0 8px 20px rgba(255, 42, 133, 0.45);
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
+      color: #fff;
     }
 
-    .player-panel {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(24px);
+    .panel {
+      background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 32px;
-      padding: 32px 26px;
+      padding: 30px 24px;
       text-align: center;
-      margin-bottom: 24px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+      margin-bottom: 22px;
     }
 
-    .player-panel h1 { font-size: clamp(26px, 5vw, 38px); font-weight: 900; margin-bottom: 10px; }
-    .player-panel p { color: rgba(255, 255, 255, 0.72); font-size: 15px; margin-bottom: 22px; }
-
     .now-box {
-      background: rgba(15, 7, 20, 0.7);
-      border: 1px solid rgba(255, 94, 156, 0.4);
-      border-radius: 22px;
-      padding: 18px 22px;
+      background: rgba(11, 5, 16, 0.75);
+      border: 1px solid rgba(255, 106, 166, 0.4);
+      border-radius: 20px;
+      padding: 16px 20px;
+      margin-top: 18px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      align-items: center;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .equalizer {
+    .track {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 26px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+    .track-top {
       display: flex;
-      align-items: flex-end;
-      gap: 4px;
-      height: 24px;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
     }
-    .bar {
-      width: 5px;
-      height: 6px;
-      background: #ff5e9c;
-      border-radius: 4px;
-      transition: height 0.2s;
-    }
-    .playing .bar {
-      animation: bounce 0.6s infinite alternate ease-in-out;
-    }
-    .playing .bar:nth-child(2) { animation-delay: 0.15s; }
-    .playing .bar:nth-child(3) { animation-delay: 0.3s; }
-    .playing .bar:nth-child(4) { animation-delay: 0.45s; }
-
-    @keyframes bounce {
-      0% { height: 6px; }
-      100% { height: 24px; }
-    }
-
-    .btn-stop {
-      background: rgba(255, 42, 133, 0.25);
-      border: 1px solid #ff2a85;
+    .btn {
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
+      border: none;
       color: #fff;
-      padding: 10px 20px;
+      padding: 11px 22px;
+      border-radius: 16px;
+      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn-stop {
+      background: rgba(255, 30, 122, 0.25);
+      border: 1px solid #ff1e7a;
+      color: #fff;
+      padding: 10px 18px;
       border-radius: 14px;
       font-family: inherit;
       font-weight: 800;
       cursor: pointer;
     }
-    .btn-stop:hover { background: #ff2a85; }
-
-    .tracks { display: flex; flex-direction: column; gap: 16px; }
-
-    .track-card {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 26px;
-      padding: 24px;
-      transition: transform 0.25s, border-color 0.25s;
-    }
-    .track-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255, 94, 156, 0.45);
-    }
-
-    .track-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .track-head h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
-    .track-head span { font-size: 13px; color: rgba(255, 255, 255, 0.6); }
-
-    .btn-play {
-      background: linear-gradient(135deg, #ff2a85, #9333ea);
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 16px;
-      font-family: inherit;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 42, 133, 0.35);
-    }
-    .btn-play:hover { transform: scale(1.04); }
-
-    .verse {
+    .lyrics {
       background: rgba(255, 255, 255, 0.04);
-      padding: 14px 18px;
-      border-radius: 16px;
+      padding: 14px;
+      border-radius: 14px;
       font-size: 14px;
-      line-height: 1.65;
       color: #ffd1e3;
+      line-height: 1.6;
       font-style: italic;
     }
   </style>
 </head>
 <body>
-  <div class="bg-glow glow-1"></div>
-  <div class="bg-glow glow-2"></div>
-
   <div class="container">
     <nav class="navbar">
-      <a href="index.html" class="nav-link">✨ Главная открытка</a>
-      <a href="music.html" class="nav-link active">🎵 Песни для мамы</a>
-      <a href="chat.html" class="nav-link">💬 Тёплый чатик</a>
+      <a href="index.html" class="nav-link">✨ Открытка</a>
+      <a href="music.html" class="nav-link active">🎵 Песни</a>
+      <a href="chat.html" class="nav-link">💬 Чатик мам</a>
+      <a href="game.html" class="nav-link">🎮 Игра для мамы</a>
     </nav>
 
-    <div class="player-panel">
-      <h1>🎶 Музыкальная шкатулка</h1>
-      <p>Нажми на любую композицию, чтобы зазвучала нежная праздничная мелодия</p>
-      <div class="now-box" id="nowBox">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <div class="equalizer" id="eq">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-          </div>
-          <div style="text-align: left;">
-            <strong id="trackName" style="display: block; font-size: 16px; color: #ff85b8;">Выберите песню ниже</strong>
-            <span id="trackSub" style="font-size: 12.5px; color: rgba(255,255,255,0.6);">Звучит прямо в браузере</span>
-          </div>
+    <div class="panel">
+      <h1 style="font-size: 30px; font-weight: 900; margin-bottom: 8px;">🎶 Музыкальная шкатулка</h1>
+      <p style="color: rgba(255,255,255,0.7); font-size: 14.5px;">Выбирай любую мелодию — она заиграет прямо здесь</p>
+      <div class="now-box">
+        <div style="text-align: left;">
+          <strong id="tName" style="color: #ff85b8; display: block;">Ничего не играет</strong>
+          <span id="tSub" style="font-size: 12.5px; color: rgba(255,255,255,0.6);">Нажми «Слушать» ниже</span>
         </div>
-        <button class="btn-stop" onclick="stopTrack()">⏹ Стоп</button>
+        <button type="button" class="btn-stop" onclick="stopAll()">⏹ Стоп</button>
       </div>
     </div>
 
-    <div class="tracks">
-      <div class="track-card">
-        <div class="track-head">
-          <div>
-            <h3>1. Нежность маминых рук</h3>
-            <span>Мелодия музыкальной шкатулки • Специально для Ларисы</span>
-          </div>
-          <button class="btn-play" onclick="playTrack(0)">▶ Включить</button>
+    <div class="track">
+      <div class="track-top">
+        <div>
+          <h3>1. Нежность маминых рук</h3>
+          <span style="font-size: 13px; color: rgba(255,255,255,0.6);">Спокойная колыбельная мелодия</span>
         </div>
-        <div class="verse">
-          «Мама, ты мой главный свет в окне. Пусть каждый твой день будет таким же добрым и тёплым, как твои объятия...»
-        </div>
+        <button type="button" class="btn" onclick="playMelody(0)">▶ Слушать</button>
       </div>
+      <div class="lyrics">«Пусть каждый день звучит как добрая мелодия, а в доме всегда будет светло и уютно...»</div>
+    </div>
 
-      <div class="track-card">
-        <div class="track-head">
-          <div>
-            <h3>2. Весенний вальс для самой лучшей</h3>
-            <span>Светлая праздничная композиция</span>
-          </div>
-          <button class="btn-play" onclick="playTrack(1)">▶ Включить</button>
+    <div class="track">
+      <div class="track-top">
+        <div>
+          <h3>2. Весенний вальс для Ларисы</h3>
+          <span style="font-size: 13px; color: rgba(255,255,255,0.6);">Праздничная светлая композиция</span>
         </div>
-        <div class="verse">
-          «Спасибо за бессонные ночи, за поддержку и веру в меня. Пусть в душе всегда цветёт весна!»
-        </div>
+        <button type="button" class="btn" onclick="playMelody(1)">▶ Слушать</button>
       </div>
+      <div class="lyrics">«Спасибо за бессонные ночи, за твою мудрость, вкусные завтраки и бесконечную любовь!»</div>
+    </div>
 
-      <div class="track-card">
-        <div class="track-head">
-          <div>
-            <h3>3. Букет утренних тюльпанов</h3>
-            <span>Лёгкая и радостная мелодия</span>
-          </div>
-          <button class="btn-play" onclick="playTrack(2)">▶ Включить</button>
+    <div class="track">
+      <div class="track-top">
+        <div>
+          <h3>3. Утренний букет тюльпанов</h3>
+          <span style="font-size: 13px; color: rgba(255,255,255,0.6);">Радостная мелодия настроения</span>
         </div>
-        <div class="verse">
-          «С Днём матери, родная! Пусть музыка счастья звучит в нашем доме каждый день!»
-        </div>
+        <button type="button" class="btn" onclick="playMelody(2)">▶ Слушать</button>
       </div>
+      <div class="lyrics">«Мама — первое слово, главное слово в каждой судьбе. С Днём матери, родная!»</div>
     </div>
   </div>
 
   <script>
-    let ctx = null;
-    let timer = null;
-
-    const melodies = [
-      {
-        title: "Нежность маминых рук",
-        speed: 400,
-        notes: [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.00, 698.46, 523.25, 659.25, 783.99, 1046.50, 987.77, 783.99, 659.25, 523.25]
-      },
-      {
-        title: "Весенний вальс для самой лучшей",
-        speed: 350,
-        notes: [659.25, 783.99, 987.77, 880.00, 783.99, 659.25, 587.33, 659.25, 783.99, 659.25, 523.25, 587.33, 659.25, 523.25]
-      },
-      {
-        title: "Букет утренних тюльпанов",
-        speed: 300,
-        notes: [523.25, 587.33, 659.25, 783.99, 880.00, 783.99, 659.25, 783.99, 1046.50, 880.00, 783.99, 659.25, 587.33, 523.25]
-      }
+    var ctx = null;
+    var timer = null;
+    var list = [
+      { name: "Нежность маминых рук", speed: 420, notes: [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.00, 698.46, 523.25, 659.25, 783.99, 1046.50] },
+      { name: "Весенний вальс для Ларисы", speed: 360, notes: [659.25, 783.99, 987.77, 880.00, 783.99, 659.25, 587.33, 659.25, 783.99, 659.25, 523.25] },
+      { name: "Утренний букет тюльпанов", speed: 310, notes: [523.25, 587.33, 659.25, 783.99, 880.00, 783.99, 659.25, 783.99, 1046.50, 880.00, 783.99] }
     ];
 
-    function beep(freq) {
+    function tone(f) {
       if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.001, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.6);
+      var o = ctx.createOscillator();
+      var g = ctx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(f, ctx.currentTime);
+      g.gain.setValueAtTime(0.001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 0.04);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
+      o.connect(g);
+      g.connect(ctx.destination);
+      o.start();
+      o.stop(ctx.currentTime + 0.6);
     }
 
-    function playTrack(idx) {
-      stopTrack();
-      const m = melodies[idx];
-      document.getElementById('trackName').innerText = "🎵 " + m.title;
-      document.getElementById('trackSub').innerText = "Сейчас играет...";
-      document.getElementById('eq').classList.add('playing');
-
-      let i = 0;
-      beep(m.notes[i++]);
-      timer = setInterval(() => {
-        beep(m.notes[i % m.notes.length]);
-        i++;
-      }, m.speed);
+    function playMelody(i) {
+      stopAll();
+      var item = list[i];
+      document.getElementById('tName').innerText = "🎵 " + item.name;
+      document.getElementById('tSub').innerText = "Звучит прямо сейчас...";
+      var s = 0;
+      tone(item.notes[s++]);
+      timer = setInterval(function() {
+        tone(item.notes[s++ % item.notes.length]);
+      }, item.speed);
     }
 
-    function stopTrack() {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-      document.getElementById('eq').classList.remove('playing');
-      document.getElementById('trackName').innerText = "Пауза";
-      document.getElementById('trackSub').innerText = "Нажмите «Включить» на любой песне";
+    function stopAll() {
+      if (timer) { clearInterval(timer); timer = null; }
+      document.getElementById('tName').innerText = "Пауза";
+      document.getElementById('tSub').innerText = "Выбери композицию из списка";
     }
   </script>
 </body>
