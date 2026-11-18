@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Игра для мамы 🎮</title>
+  <link href="https://googleapis.com" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #0b0510;
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 20px 16px 40px;
+      display: flex;
+      justify-content: center;
+      user-select: none;
+    }
+    .container { max-width: 880px; width: 100%; text-align: center; }
+
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 10px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 11px 18px;
+      border-radius: 40px;
+    }
+    .nav-link.active {
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
+      color: #fff;
+    }
+
+    .game-area {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(255, 106, 166, 0.4);
+      border-radius: 30px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .score-board {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffd1e3;
+    }
+
+    .item {
+      position: absolute;
+      font-size: 38px;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .item:active { transform: scale(1.4); }
+
+    .btn-start {
+      background: linear-gradient(135deg, #ff1e7a, #8b5cf6);
+      border: none;
+      color: #fff;
+      padding: 14px 30px;
+      border-radius: 18px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <a href="index.html" class="nav-link">✨ Открытка</a>
+      <a href="music.html" class="nav-link">🎵 Песни</a>
+      <a href="chat.html" class="nav-link">💬 Чатик мам</a>
+      <a href="game.html" class="nav-link active">🎮 Игра для мамы</a>
+    </nav>
+
+    <h1 style="font-size: 28px; font-weight: 900;">💐 Поймай цветы для Ларисы!</h1>
+    <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin: 6px 0 12px;">Кликай по падающим цветам и сердечкам, чтобы собрать огромный праздничный букет!</p>
+
+    <div class="score-board">
+      <div>Собрано цветов: <span id="pts" style="color: #ff6aa6;">0</span></div>
+      <div>Рекорд: <span id="best" style="color: #ffd166;">0</span></div>
+    </div>
+
+    <button type="button" class="btn-start" onclick="startGame()">🚀 Начать игру</button>
+
+    <div class="game-area" id="field"></div>
+  </div>
+
+  <script>
+    var pts = 0;
+    var best = Number(localStorage.getItem('mom_game_best')) || 0;
+    document.getElementById('best').innerText = best;
+    var spawner = null;
+    var icons = ['🌷', '🌹', '💐', '💖', '🎁', '🌸'];
+
+    function startGame() {
+      pts = 0;
+      document.getElementById('pts').innerText = pts;
+      var field = document.getElementById('field');
+      field.innerHTML = '';
+      if (spawner) clearInterval(spawner);
+
+      spawner = setInterval(function() {
+        var el = document.createElement('div');
+        el.className = 'item';
+        el.innerText = icons[Math.floor(Math.random() * icons.length)];
+        el.style.left = (10 + Math.random() * 80) + '%';
+        el.style.top = '-40px';
+        field.appendChild(el);
+
+        var topPos = -40;
+        var fall = setInterval(function() {
+          topPos += 4;
+          el.style.top = topPos + 'px';
+          if (topPos > 450) {
+            clearInterval(fall);
+            el.remove();
+          }
+        }, 25);
+
+        el.onclick = function() {
+          pts++;
+          document.getElementById('pts').innerText = pts;
+          if (pts > best) {
+            best = pts;
+            localStorage.setItem('mom_game_best', best);
+            document.getElementById('best').innerText = best;
+          }
+          clearInterval(fall);
+          el.remove();
+        };
+      }, 650);
+    }
+  </script>
+</body>
+</html>
